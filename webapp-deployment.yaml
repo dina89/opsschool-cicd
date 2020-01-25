@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: webapp
-        image: https://hub.docker.com/r/training/webapp/dockerfile
+        image: index.docker.io/training/webapp:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
