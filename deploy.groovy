@@ -15,4 +15,9 @@ docker.build("training/webapp")
 stage("verify dockers") {
 sh "docker images"
 }
+stage("deploy webapp") {
+      withKubeConfig([credentialsId: 'user1', serverUrl: 'https://api.k8s.my-company.com']) {
+      sh 'kubectl apply -f webapp-deployment.yaml'
+    }
+}
 }
