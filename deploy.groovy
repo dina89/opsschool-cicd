@@ -16,7 +16,7 @@ stage("verify dockers") {
 sh "docker images"
 }
 stage("deploy webapp") {
-      withKubeConfig([kubeconfigId: 'k8s_kubeconfig']) {
+      kubernetesDeploy([configs: '**/webapp-deployment.yaml/**', kubeconfigId: 'k8s_kubeconfig']) {
       sh 'kubectl apply -f webapp-deployment.yaml'
     }
 }
