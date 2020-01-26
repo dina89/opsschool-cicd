@@ -16,7 +16,15 @@ stage("verify dockers") {
 sh "docker images"
 }
 stage("deploy webapp") {
-      withKubeConfig([credentialsId: 'user1', serverUrl: 'https://api.k8s.my-company.com']) {
+      withKubeConfig(kubernetesDeploy configs: '**/webapp-deployment.yaml/**', 
+                     kubeConfig: [path: ''], 
+                     kubeconfigId: 'k8s_kubeconfig', 
+                     secretName: '', 
+                     ssh: [sshCredentialsId: '*', sshServer: ''], 
+                     textCredentials: [certificateAuthorityData: '', 
+                     clientCertificateData: '', 
+                     clientKeyData: '', 
+                     serverUrl: 'https://']) {
       sh 'kubectl apply -f webapp-deployment.yaml'
     }
 }
