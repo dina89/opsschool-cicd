@@ -25,7 +25,7 @@ stage("deploy webapp") {
                   extensions: [[$class: 'CleanBeforeCheckout']], 
                   submoduleCfg: [], 
                   userRemoteConfigs: [[credentialsId: 'Github-Dina89', 
-                                       url: 'https://github.com/dina89/opsschool-cicd']]]
+                                       url: 'https://github.com/dina89/opsschool-cicd']]])
       kubernetesDeploy(
             configs: '**/webapp-deployment.yaml/**', 
             kubeconfigId: 'k8s_kubeconfig')
