@@ -28,6 +28,7 @@ stage("deploy webapp") {
                                        url: 'https://github.com/dina89/opsschool-cicd']]])
       kubernetesDeploy(
             configs: '**/webapp-deployment.yaml/**', 
-            kubeconfigId: 'k8s_kubeconfig')
+            kubeconfigId: 'k8s_kubeconfig',
+            textCredentials: [serverUrl: 'https://'])
 }
 }
