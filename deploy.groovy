@@ -26,9 +26,12 @@ stage("deploy webapp") {
                   submoduleCfg: [], 
                   userRemoteConfigs: [[credentialsId: 'Github-Dina89', 
                                        url: 'https://github.com/dina89/opsschool-cicd']]])
-      kubernetesDeploy(
+      
+      withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWS-creds', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+          kubernetesDeploy(
             configs: '**/webapp-deployment.yaml/**', 
             kubeconfigId: 'k8s_kubeconfig',
             textCredentials: [serverUrl: 'https://'])
-}
+            }
+      }
 }
