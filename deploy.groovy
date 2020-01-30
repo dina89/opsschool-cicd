@@ -1,7 +1,4 @@
 node("linux") {
-environment{
-      credentialsId = "AWS-creds"
-}
 def customImage = ""
 stage("create dockerfile") {
 sh """
@@ -29,9 +26,14 @@ stage("deploy webapp") {
                   submoduleCfg: [], 
                   userRemoteConfigs: [[credentialsId: 'Github-Dina89', 
                                        url: 'https://github.com/dina89/opsschool-cicd']]])
-      kubernetesDeploy(
-            configs: '**/webapp-deployment.yaml/**', 
-            kubeconfigId: 'k8s_kubeconfig',
-            textCredentials: [serverUrl: 'https://'])
+       withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', 
+                         accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
+                         credentialsId: 'AWS-creds', 
+                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+            kubernetesDeploy(
+                  configs: '**/webapp-deployment.yaml/**', 
+                  kubeconfigId: 'k8s_kubeconfig',
+                  textCredentials: [serverUrl: 'https://'])
+            }
       }
 }
