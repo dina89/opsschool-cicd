@@ -24,6 +24,6 @@ sh "docker images"
 }
 stage("deploy webapp") {
     sh "aws eks --region us-east-1 update-kubeconfig --name opsSchool-eks-dina"
-    sh "kubectl apply -f k8s/webapp-deployment.yaml"
+    sh "kubectl apply -f k8s/webapp-deployment.yml"
 }
 }
