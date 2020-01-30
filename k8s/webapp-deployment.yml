@@ -24,6 +24,10 @@ spec:
       labels:
         run: webapp
     spec:
+      ports:
+      - name: http
+        protocol: TCP
+        containerPort: 8080
       containers:
       - image: index.docker.io/training/webapp:latest
         imagePullPolicy: IfNotPresent
