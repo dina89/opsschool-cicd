@@ -23,13 +23,8 @@ stage("verify dockers") {
 sh "docker images"
 }
 stage("deploy webapp") {
-       withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', 
-                         accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
-                         credentialsId: 'AWS-creds', 
-                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-            kubernetesDeploy(
-                  configs: 'k8s/*', 
-                  kubeconfigId: 'k8s_kubeconfig')
-            }
-      }
+    kubernetesDeploy(
+          configs: 'k8s/*', 
+          kubeconfigId: 'k8s_kubeconfig')
+    }
 }
