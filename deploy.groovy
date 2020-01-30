@@ -15,8 +15,8 @@ docker.build("training/webapp")
 stage("verify dockers") {
 sh "docker images"
 }
-stage("deploy webapp") {
-      checkout(
+stage("Pull deployment.yml") {
+checkout(
             changelog: false, 
             poll: false, 
             scm: [$class: 'GitSCM', 
@@ -26,6 +26,8 @@ stage("deploy webapp") {
                   submoduleCfg: [], 
                   userRemoteConfigs: [[credentialsId: 'Github-Dina89', 
                                        url: 'https://github.com/dina89/opsschool-cicd']]])
+}
+stage("deploy webapp") {
        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', 
                          accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
                          credentialsId: 'AWS-creds', 
