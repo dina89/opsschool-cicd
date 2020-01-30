@@ -1,5 +1,12 @@
 node("linux") {
+environment{
+    credentialsId = "Github-Dina89"
+}
 def customImage = ""
+stage('Git') { // Get code from GitLab repository
+    git branch: 'master',
+      url: 'https://github.com/dina89/opsschool-cicd.git'
+}
 stage("create dockerfile") {
 sh """
 tee Dockerfile <<-'EOF'
