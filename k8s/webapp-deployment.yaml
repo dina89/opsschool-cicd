@@ -8,9 +8,6 @@ spec:
     matchLabels:
       app: webapp
   template:
-    metadata:
-      labels:
-        app: webapp
     spec:
       containers:
       - name: webapp-pod
