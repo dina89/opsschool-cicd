@@ -34,8 +34,7 @@ stage("deploy webapp") {
                          secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
             kubernetesDeploy(
                   configs: '**/webapp-deployment.yaml/**', 
-                  kubeconfigId: 'k8s_kubeconfig',
-                  textCredentials: [serverUrl: 'https://'])
+                  kubeconfigId: 'k8s_kubeconfig')
             }
       }
 }
